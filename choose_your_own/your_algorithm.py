@@ -3,6 +3,7 @@
 import matplotlib.pyplot as plt
 from prep_terrain_data import makeTerrainData
 from class_vis import prettyPicture
+from sklearn import ensemble
 
 features_train, labels_train, features_test, labels_test = makeTerrainData()
 
@@ -27,10 +28,12 @@ plt.ylabel("grade")
 plt.show()
 ################################################################################
 
-
 ### your code here!  name your classifier object clf if you want the 
 ### visualization code (prettyPicture) to show you the decision boundary
-
+clf = ensemble.AdaBoostClassifier()
+print "Training the AdaBoostClassifier"
+clf.fit(features_train, labels_train)
+print "Accuracy: ", clf.score(features_test, labels_test)
 
 
 

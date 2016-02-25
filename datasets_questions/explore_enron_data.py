@@ -19,4 +19,44 @@ import pickle
 
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
 
+def get_numPOIs():
+    numPOIs = 0
+    for features in enron_data.values():
+        if(features['poi']):
+            numPOIs = numPOIs + 1
+
+    print "The number of persons of interest is ", numPOIs
+    return numPOIs
+
+def quantified_salary():
+    qSal = 0
+    for features in enron_data.values():
+        if(features['salary'] !='NaN'):
+            qSal = qSal + 1
+
+    return qSal
+
+def known_email():
+    emails = 0
+    for features in enron_data.values():
+        if(features['email_address'] !='NaN'):
+            emails = emails + 1
+
+    return emails
+
+def missing_total_payments():
+    missing = 0
+    for features in enron_data.values():
+        if(features['total_payments'] == 'NaN'):
+            missing = missing + 1
+
+    return missing
+            
+def pois_missing_payments():
+    missing = 0
+    for features in enron_data.values():
+        if(features['poi'] and features['total_payments'] == 'NaN'):
+            missing = missing + 1
+
+    return missing
 

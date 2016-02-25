@@ -12,15 +12,20 @@ import sys
 from time import time
 sys.path.append("../tools/")
 from email_preprocess import preprocess
+from sklearn import tree
 
-
+print "Sigh."
 ### features_train and features_test are the features for the training
 ### and testing datasets, respectively
 ### labels_train and labels_test are the corresponding item labels
 features_train, features_test, labels_train, labels_test = preprocess()
 
 
-
+min_samples_split = 40
+clf = tree.DecisionTreeClassifier(min_samples_split=min_samples_split)
+print "Building the decision tree..."
+clf.fit(features_train, labels_train)
+print clf.score(features_test, labels_test)
 
 #########################################################
 ### your code goes here ###
