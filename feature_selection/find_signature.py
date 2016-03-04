@@ -13,8 +13,9 @@ authors_file = "../text_learning/your_email_authors.pkl"
 word_data = pickle.load( open(words_file, "r"))
 authors = pickle.load( open(authors_file, "r") )
 
-
-
+for i in range(len(word_data)):
+    word_data[i] = word_data[i].replace("sshacklensf", "")
+    word_data[i] = word_data[i].replace("cgermannsf", "")
 ### test_size is the percentage of events assigned to the test set (the
 ### remainder go into training)
 ### feature matrices changed to dense representations for compatibility with
@@ -35,9 +36,19 @@ features_test  = vectorizer.transform(features_test).toarray()
 features_train = features_train[:150].toarray()
 labels_train   = labels_train[:150]
 
+from sklearn.tree import DecisionTreeClassifier
+clf = DecisionTreeClassifier()
+clf = clf.fit(features_train, labels_train)
 
+print clf.score(features_test, labels_test)
+most = max(clf.feature_importances_)
+print most 
+mostIndex = numpy.where(clf.feature_importances_ == most)
+print vectorizer.get_feature_names()[mostIndex[0]]
 
-### your code goes here
+veryImportant = 0
+for entry in clf.feature_importances_:
+    if entry > 0.2:
+        veryImportant = veryImportant + 1
 
-
-
+print veryImportant
