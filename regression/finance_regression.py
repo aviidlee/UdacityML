@@ -41,6 +41,9 @@ slope = reg.coef_
 print slope
 print "intercept is ", reg.intercept_
 
+print "training score", reg.score(feature_train, target_train)
+print "testing score", reg.score(feature_test, target_test)
+
 ### draw the scatterplot, with color-coded training and testing points
 import matplotlib.pyplot as plt
 for feature, target in zip(feature_test, target_test):
@@ -52,14 +55,15 @@ for feature, target in zip(feature_train, target_train):
 plt.scatter(feature_test[0], target_test[0], color=test_color, label="test")
 plt.scatter(feature_test[0], target_test[0], color=train_color, label="train")
 
-
-
-
 ### draw the regression line, once it's coded
 try:
     plt.plot( feature_test, reg.predict(feature_test) )
 except NameError:
     pass
+reg.fit(feature_test, target_test)
+print reg.coef_
+plt.plot(feature_train, reg.predict(feature_train), color="b") 
+
 plt.xlabel(features_list[1])
 plt.ylabel(features_list[0])
 plt.legend()
